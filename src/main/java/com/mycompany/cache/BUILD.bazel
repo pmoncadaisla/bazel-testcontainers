@@ -1,0 +1,12 @@
+java_library(
+    name = "lib",
+    srcs = glob(["*.java"]),
+    # resources = glob(["**/src/main/resources/**"]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "@maven//:org_slf4j_slf4j_api",
+        "@maven//:redis_clients_jedis",
+        "@maven//:com_google_code_gson_gson",
+        "@maven//:com_google_guava_guava",
+    ],
+)
