@@ -68,16 +68,38 @@ _java_image_repos()
 
 http_archive(
     name = "bazel_toolchains",
-    sha256 = "4e55e44bdf352c61204956c08e7afaa7ee156caffc31c69dd944ea88bb799b00",
-    strip_prefix = "bazel-toolchains-6a976945fd2017ffa6b5a0899a9caf004bb58b0f",
+    sha256 = "e2126599d29f2028e6b267eba273dcc8e7f4a35ff323e9600cf42fb03875b7c6",
+    strip_prefix = "bazel-toolchains-2.0.0",
     urls = [
-        "https://github.com/bazelbuild/bazel-toolchains/archive/6a976945fd2017ffa6b5a0899a9caf004bb58b0f.tar.gz",
+        "https://github.com/bazelbuild/bazel-toolchains/releases/download/2.0.0/bazel-toolchains-2.0.0.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-toolchains/archive/2.0.0.tar.gz",
     ],
 )
 
-load(
-    "@bazel_toolchains//repositories:repositories.bzl",
-    bazel_toolchains_repositories = "repositories",
+load("@bazel_toolchains//rules:rbe_repo.bzl", "rbe_autoconfig")
+
+# Creates a default toolchain config for RBE.
+# Use this as is if you are using the rbe_ubuntu16_04 container,
+# otherwise refer to RBE docs.
+rbe_autoconfig(
+    name = "rbe_default",
+    java_home = "/usr/lib/jvm/11.29.3-ca-jdk11.0.2/reduced",
+    # use_checked_in_confs = "Force",
 )
 
-bazel_toolchains_repositories()
+# rules_proto defines abstract rules for building Protocol Buffers.
+http_archive(
+    name = "rules_proto",
+    sha256 = "57001a3b33ec690a175cdf0698243431ef27233017b9bed23f96d44b9c98242f",
+    strip_prefix = "rules_proto-9cd4f8f1ede19d81c6d48910429fe96776e567b1",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_proto/archive/9cd4f8f1ede19d81c6d48910429fe96776e567b1.tar.gz",
+        "https://github.com/bazelbuild/rules_proto/archive/9cd4f8f1ede19d81c6d48910429fe96776e567b1.tar.gz",
+    ],
+)
+
+load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
+
+rules_proto_dependencies()
+
+rules_proto_toolchains()
