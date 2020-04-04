@@ -18,6 +18,7 @@ public class RedisBackedCacheTest {
     @Rule
     public GenericContainer redis = new GenericContainer("redis:3.0.6")
                                             .withExposedPorts(6379);
+
     private Cache cache;
 
     @Before
