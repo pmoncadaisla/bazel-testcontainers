@@ -10,10 +10,36 @@ In this PoC we will:
     - :white_check_mark: Build
     - :white_check_mark: Test
 
+This repository takes as an example the `redis-backed-cache` from the offical [java testcontainers examples](https://github.com/testcontainers/testcontainers-java/tree/master/examples/redis-backed-cache).
 
-## 1. Locally
+## What is Bazel?
+Bazel is a build system, just like `Make` or `Gradle`.
 
-### Build
+Some of it features:
+- Suitable for almost every programming language.
+- Suitable for large monorepos
+- Scalable
+- Speeds up building and testing
+
+Some of Bazel's features include Remote Build Execution. With RBE we can spread our builds and tests within a large and remote build farm. This way we can speed up even more our builds and tests.
+
+Learn more about Bazel at https://bazel.build/ and chech [remote execution overview](https://docs.bazel.build/versions/master/remote-execution.html).
+
+## What are Testcontainers?
+
+With Testcontainers you can manage programatically environment dependencies needed for running your integration or acceptance tests.
+For example, you need a running database, a Kafka Cluster or a Browser to run UI tests.
+Testcontainers is available for multiple languages (Java, Go, Python...).
+Your only requisite will be to have a running Docker API endpoint (Unix Socket or TCP).
+
+In this repository we will see how can we combine `Bazel` and `Testcontainers`.
+
+
+
+## Executing Bazel
+### 1. Locally
+
+#### Build
 
 To build locally using Bazel:
 ```
@@ -30,7 +56,7 @@ INFO: 0 processes.
 INFO: Build completed successfully, 1 total action
 ```
 
-### Test
+#### Test
 
 To test locally using Bazel:
 ```
@@ -50,13 +76,17 @@ Executed 0 out of 1 test: 1 test passes.
 INFO: Build completed successfully, 1 total action
 ```
 
-## 2. Remotely
+### 2. Remotely
 
 To execute a build remotely using Google RBE you will need to have access to the private alpha.
 You can request access by filling [this form.](https://docs.google.com/forms/d/e/1FAIpQLScBai-iQ2tn7RcGcsz3Twjr4yDOeHowrb6-3v5qlgS69GcxbA/viewform)
 
+You can also use self-hosted solutions:
+- [Buildbarn](https://github.com/buildbarn)
+- [Buildfarm](https://github.com/bazelbuild/bazel-buildfarm)
 
-### Build
+
+#### Build
 
 To build remotely using Bazel:
 ```
@@ -72,7 +102,7 @@ INFO: 66 processes: 1 remote cache hit, 65 remote.
 INFO: Build completed successfully, 117 total actions
 ```
 
-### Test
+#### Test
 
 
 To test remotely using Bazel:
