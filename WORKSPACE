@@ -76,7 +76,18 @@ http_archive(
     ],
 )
 
+load("@bazel_toolchains//rules/exec_properties:exec_properties.bzl", "rbe_exec_properties")
+
+# rbe_exec_properties defines a local repository named "exec_properties"
+# which defines constants such as "NETWORK_ON"
+rbe_exec_properties(
+  name = "exec_properties",
+)
+
 load("@bazel_toolchains//rules:rbe_repo.bzl", "rbe_autoconfig")
+load("@exec_properties//:constants.bzl", "NETWORK_ON", "DOCKER_SIBLINGS_CONTAINERS")
+load("@bazel_skylib//lib:dicts.bzl", "dicts")
+
 
 # Creates a default toolchain config for RBE.
 # Use this as is if you are using the rbe_ubuntu16_04 container,
@@ -84,6 +95,8 @@ load("@bazel_toolchains//rules:rbe_repo.bzl", "rbe_autoconfig")
 rbe_autoconfig(
     name = "rbe_default",
     java_home = "/usr/lib/jvm/11.29.3-ca-jdk11.0.2/reduced",
+    use_legacy_platform_definition = False,
+    exec_properties = dicts.add(DOCKER_SIBLINGS_CONTAINERS, NETWORK_ON),
     # use_checked_in_confs = "Force",
 )
 
