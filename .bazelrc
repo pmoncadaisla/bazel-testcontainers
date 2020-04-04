@@ -62,7 +62,8 @@ build:remote --remote_timeout=3600
 # default. You can use --google_credentials=some_file.json to use a service
 # account credential instead.
 build:remote --google_default_credentials=true
-build:remote --host_platform_remote_properties_override='properties:{name:"cache-silo-key" value:"rbe-test"}'
+build:remote --remote_instance_name=projects/mm-cloudbuild/instances/default_instance
+#build:remote --host_platform_remote_properties_override='properties:{name:"cache-silo-key" value:"rbe-test"}'
 
 
 
@@ -82,8 +83,3 @@ build:remote-cache --strategy=Genrule=standalone
 build --host_force_python=PY2
 test --host_force_python=PY2
 run --host_force_python=PY2
-
-
-test --test_output=all
-test --test_summary=detailed
-test --test_output=streamed
