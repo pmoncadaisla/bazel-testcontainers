@@ -65,3 +65,19 @@ load(
 )
 
 _java_image_repos()
+
+http_archive(
+    name = "bazel_toolchains",
+    sha256 = "4e55e44bdf352c61204956c08e7afaa7ee156caffc31c69dd944ea88bb799b00",
+    strip_prefix = "bazel-toolchains-6a976945fd2017ffa6b5a0899a9caf004bb58b0f",
+    urls = [
+        "https://github.com/bazelbuild/bazel-toolchains/archive/6a976945fd2017ffa6b5a0899a9caf004bb58b0f.tar.gz",
+    ],
+)
+
+load(
+    "@bazel_toolchains//repositories:repositories.bzl",
+    bazel_toolchains_repositories = "repositories",
+)
+
+bazel_toolchains_repositories()

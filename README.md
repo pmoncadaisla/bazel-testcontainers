@@ -59,7 +59,11 @@ bazel build //... --config=remote
 
 Expected output:
 ```
-
+INFO: Analyzed 13 targets (1 packages loaded, 126 targets configured).
+INFO: Found 13 targets...
+INFO: Elapsed time: 67.431s, Critical Path: 66.28s
+INFO: 66 processes: 1 remote cache hit, 65 remote.
+INFO: Build completed successfully, 117 total actions
 ```
 
 ### Test
